@@ -1,0 +1,553 @@
+   <!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoPride - All Sports Uniforms</title>
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<style>         
+/* Reset & Base Styles */
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+body {
+font-family: Arial, sans-serif;
+background-color: #050811;
+color: #ffffff;
+}
+/* Fixed Keyframe Animation */
+@keyframes heroBackgroundSlider {
+0%, 20% {
+background-image: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200');
+}
+25%, 45% {
+background-image: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=1200');
+}
+50%, 70% {
+background-image: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200');
+}
+75%, 95% {
+background-image: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=1200');
+}
+100% {
+background-image: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200');
+}
+}
+/* Applying Animation to Hero Banner */
+.hero-banner {
+padding: 0 5%;
+display: flex;
+align-items: center;
+min-height: 100vh;
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+animation: heroBackgroundSlider 12s infinite;
+transition: background-image 0.5s ease-in-out;
+}
+/* Tab Button Styles */
+.tab-btn {
+background-color: #080d19;
+color: #fff;
+border: 1px dashed #4b5563;
+padding: 12px 24px;
+font-weight: 700;
+font-size: 14px;
+border-radius: 6px;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+.tab-btn.active {
+background-color: #d4f828;
+color: #000;
+border: 1px solid #d4f828;
+}
+/* Deal Section Banner Slider Transition */
+#deal-banner {
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+transition: background-image 2s ease-in-out;
+}
+/* Search Modal Styles */
+#search-modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(5, 8, 17, 0.95);
+z-index: 2000;
+justify-content: center;
+align-items: flex-start;
+padding-top: 80px;
+}
+/* Cart Drawer Styles */
+#cart-drawer {
+display: none;
+position: fixed;
+top: 0;
+right: 0;
+width: 100%;
+max-width: 400px;
+height: 100%;
+background: #0b1120;
+z-index: 2000;
+box-shadow: -5px 0 25px rgba(0,0,0,0.7);
+border-left: 1px solid #1f293d;
+flex-direction: column;
+}
+</style>
+</head>
+<body>
+<!-- Navigation Header Starts Here -->
+<header class="main-navbar" style="background-color: #050811; border-bottom: 1px solid #1f293d; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000;">
+<!-- Logo Section -->
+<div class="nav-logo">
+<a href="#">
+<img src="http://echopride.store/wp-content/uploads/2025/10/BLogowithicon.webp" alt="EchoPride Logo" style="height: 40px; display: block; opacity: 0.6; filter: brightness(0.8);">
+</a>
+</div>
+<!-- Navigation Links -->
+<nav class="nav-links" style="display: flex; gap: 30px; align-items: center;">
+<a href="shop.html" style="color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase;">SHOP</a>
+
+<a href="#about-us-section" style="color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase;">ABOUT US</a>
+<a href="https://echopride.store/contact-us/" style="color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase;">CONTACT US</a>
+</nav>
+<!-- Action Icons -->
+<div class="nav-actions" style="display: flex; gap: 20px; align-items: center;">
+<button onclick="openSearchModal()" style="background: none; border: none; color: #ffffff; cursor: pointer; padding: 0;" title="Search">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+</button>
+<button onclick="openCartDrawer()" style="background: none; border: none; color: #ffffff; position: relative; cursor: pointer; padding: 0;" title="Cart">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+<line x1="3" y1="6" x2="21" y2="6"></line>
+<path d="M16 10a4 4 0 0 1-8 0"></path>
+</svg>
+<span id="cart-count" style="position: absolute; top: -6px; right: -8px; background-color: #cbef33; color: #000000; font-size: 10px; font-weight: bold; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">0</span>
+</button>
+</div>
+</header>
+<!-- Navigation Header Ends Here -->
+<!-- Search Popup Modal Box -->
+<div id="search-modal">
+<div style="width: 90%; max-width: 600px; background: #0b1120; padding: 30px; border-radius: 10px; border: 1px solid #1f293d; position: relative;">
+<button onclick="closeSearchModal()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">&times;</button>
+<h3 style="color: #fff; font-family: serif; margin-bottom: 20px; font-size: 22px;">Search Sports Uniforms</h3>
+<input type="text" id="search-input" oninput="filterSearchProducts()" placeholder="Uniform ka naam likhein (e.g. Football, Basketball, Soccer, Rugby)..." style="width: 100%; padding: 12px 15px; background: #1f293d; border: 1px solid #374151; color: #fff; border-radius: 6px; outline: none; font-size: 15px;">
+<!-- Search Results Container -->
+<div id="search-results" style="margin-top: 20px; max-height: 350px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+</div>
+</div>
+</div>
+<!-- Cart Drawer / Sidebar -->
+<div id="cart-drawer">
+<div style="padding: 20px; border-bottom: 1px solid #1f293d; display: flex; justify-content: space-between; align-items: center;">
+<h3 style="color: #fff; font-size: 18px; font-family: serif;">Your Shopping Cart</h3>
+<button onclick="closeCartDrawer()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">&times;</button>
+</div>
+<div id="cart-items-container" style="padding: 20px; flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px;">
+<!-- Cart items will load here dynamically -->
+</div>
+<div style="padding: 20px; border-top: 1px solid #1f293d; background: #080d19;">
+<div style="display: flex; justify-content: space-between; margin-bottom: 15px; color: #fff; font-weight: bold;">
+<span>Total:</span>
+<span id="cart-total">Rs. 0</span>
+</div>
+<a href="shop.html" style="display: block; text-align: center; background: #cbef33; color: #000; padding: 12px; font-weight: bold; text-decoration: none; border-radius: 4px;">Proceed to Checkout</a>
+</div>
+</div>
+<!-- Main Homepage Content Starts Here -->
+<main class="main-content">
+<!-- 1. Hero Banner Section -->
+<section class="hero-banner">
+<div class="hero-content" style="max-width: 600px;">
+<span id="hero-category-label" style="color: #a3e635; font-size: 14px; letter-spacing: 2px; font-weight: bold; text-transform: uppercase;">Football Uniform</span>
+<h1 style="font-size: 48px; font-family: serif; margin: 15px 0; line-height: 1.1; color: #ffffff;">SHOP THE BEST SOCCERS UNIFORMS ACCESSORIES</h1>
+<div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+<a href="shop.html" style="display: inline-block; background-color: #cbef33; color: #000; font-weight: bold; padding: 12px 30px; text-decoration: none; border-radius: 4px;">Shop now</a>
+<a href="#store-gallery" style="display: inline-block; background-color: #111; color: #fff; font-weight: bold; padding: 12px 30px; text-decoration: none; border-radius: 4px; border: 1px solid #cbef33;">Browse Store</a>
+</div>
+</div>
+</section>
+<!-- 2. Shop By Category Carousel Section -->
+<section class="shop-category" style="padding: 60px 5%; text-align: center; background-color: #0a0f1d;">
+<h2 style="font-family: serif; font-size: 32px; letter-spacing: 1px; margin-bottom: 40px; color: #fff;">SHOP BY CATEGORY</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+<div style="position: relative; overflow: hidden; border-radius: 8px;">
+<img src="https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=400" alt="Softball" style="width: 100%; height: 320px; object-fit: cover;">
+<a href="https://echopride.store/product-category/softball-uniform/" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #cbef33; color: #000; padding: 8px 25px; text-decoration: none; font-weight: bold; border-radius: 3px;">Softball</a>
+</div>
+<div style="position: relative; overflow: hidden; border-radius: 8px;">
+<img src="https://images.unsplash.com/photo-1589487391730-58f20eb2c308?q=80&w=400" alt="Rugby" style="width: 100%; height: 320px; object-fit: cover;">
+<a href="https://echopride.store/product-category/rugby-uniform/" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #cbef33; color: #000; padding: 8px 25px; text-decoration: none; font-weight: bold; border-radius: 3px;">Rugby</a>
+</div>
+<div style="position: relative; overflow: hidden; border-radius: 8px;">
+<img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400" alt="Basketball" style="width: 100%; height: 320px; object-fit: cover;">
+<a href="https://echopride.store/product-category/basketball-uniform/" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #cbef33; color: #000; padding: 8px 25px; text-decoration: none; font-weight: bold; border-radius: 3px;">Basketball</a>
+</div>
+<div style="position: relative; overflow: hidden; border-radius: 8px;">
+<img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400" alt="Football" style="width: 100%; height: 320px; object-fit: cover;">
+<a href="https://echopride.store/product-category/football-uniform/" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #cbef33; color: #000; padding: 8px 25px; text-decoration: none; font-weight: bold; border-radius: 3px;">Football</a>
+</div>
+</div>
+</section>
+<!-- 3. New Arrivals & Top Trending Section -->
+<section style="padding: 60px 5%; text-align: center; background-color: #0b1120;">
+<h2 style="font-family: serif; font-size: 32px; letter-spacing: 1.5px; color: #fff; margin-bottom: 25px; text-transform: uppercase;">NEW ARRIVALS</h2>   
+<!-- Category Filter Buttons -->
+<div style="display: flex; justify-content: center; gap: 18px; margin-bottom: 45px; flex-wrap: wrap;">
+<button class="tab-btn active" onclick="showCategory('football', this)">Football Uniform</button>
+<button class="tab-btn" onclick="showCategory('basketball', this)">Basketball Uniform</button>
+<button class="tab-btn" onclick="showCategory('soccer', this)">Soccer Uniform</button>
+<button class="tab-btn" onclick="showCategory('rugby', this)">Rugby Uniform</button>
+</div>
+<h2 style="font-family: serif; font-size: 28px; letter-spacing: 1.5px; color: #fff; margin-top: 50px; margin-bottom: 30px; text-transform: uppercase;">TOP TRENDING</h2>
+<!-- Products Container -->
+<div id="products-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+</div>
+</section>
+<section id="store-gallery" style="padding: 60px 5%; background-color: #09111f; text-align: center;">
+<h2 style="font-family: serif; font-size: 32px; letter-spacing: 1px; margin-bottom: 30px; color: #fff;">STORE GALLERY</h2>
+<p style="font-size: 15px; line-height: 1.75; color: #a3acc5; max-width: 760px; margin: 0 auto 40px auto;">Browse a wide collection of website-related uniforms, shoes, and accessories. Click any product to buy now or add it to your cart.</p>
+<div id="store-gallery-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:20px;"></div>
+</section>
+
+<!-- About Us Section (Aapke kehne par yahan add kar di gayi hai) -->
+<section id="about-us-section" style="padding: 80px 5%; background-color: #0b1120; text-align: center; border-top: 1px solid #1f293d;">
+<h2 style="font-family: serif; font-size: 36px; color: #fff; margin-bottom: 20px;">About EchoPride</h2>
+<p style="font-size: 16px; line-height: 1.8; color: #a3acc5; max-width: 800px; margin: 0 auto 20px auto;">
+EchoPride aik trusted brand hai jo athletes aur sports teams ke liye high-quality uniforms aur gear tayar karta hai. Humara maqsad har khilari ko behtareen comfort aur stylish look dena hai taake woh maidan mein apna 100% de sakein.
+</p>
+<p style="font-size: 15px; line-height: 1.7; color: #a3acc5; max-width: 800px; margin: 0 auto;">
+Hum premium fabrics aur modern designs ka istemal karte hain taake durability aur performance dono behtareen rahein. Join the EchoPride movement today!
+</p>
+</section>
+
+<!-- 4. Deal Timer Section (Auto Image Slider every 3 seconds) -->
+<section id="deal-banner" style="background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=1200') center/cover no-repeat; padding: 80px 5%; text-align: center; color: #fff;">
+<span style="letter-spacing: 2px; font-size: 14px; text-transform: uppercase;">SKYWALKER SPECIALS</span>
+<h2 style="font-family: serif; font-size: 42px; margin: 15px 0 30px 0;">High-Flyin' Deals on Football Gear!</h2>
+<div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px;">
+<div style="background: #cbef33; color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">00 <span style="font-size: 9px; font-weight: normal;">Days</span></div>
+<div style="background: #cbef33; color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">00 <span style="font-size: 9px; font-weight: normal;">Hours</span></div>
+<div style="background: #cbef33; color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">00 <span style="font-size: 9px; font-weight: normal;">Minutes</span></div>
+<div style="background: #cbef33; color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">00 <span style="font-size: 9px; font-weight: normal;">Seconds</span></div>
+</div>
+<a href="shop.html" style="background: #111; color: #fff; padding: 12px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; border: 1px solid #333;">Shop now</a>
+</section>
+<!-- 5. Discount Cards Section -->
+<section style="padding: 50px 5%; background-color: #0a0f1d;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+<div style="background: #111827; padding: 30px; border-radius: 8px; border: 1px solid #1f293d;">
+<h3 style="color: #fff; margin-top: 0;">Up to 50%<br>Score Big Savings on Sports Shoes</h3>
+<a href="shop.html" style="display: inline-block; background: #cbef33; color: #000; padding: 8px 20px; font-weight: bold; text-decoration: none; border-radius: 4px; margin-top: 15px;">Shop Now</a>
+</div>
+<div style="background: #111827; padding: 30px; border-radius: 8px; border: 1px solid #1f293d;">
+<h3 style="color: #fff; margin-top: 0;">Up to 40%<br>Huge Discounts on Sportswear</h3>
+<a href="shop.html" style="display: inline-block; background: #cbef33; color: #000; padding: 8px 20px; font-weight: bold; text-decoration: none; border-radius: 4px; margin-top: 15px;">Shop Now</a>
+</div>
+<div style="background: #111827; padding: 30px; border-radius: 8px; border: 1px solid #1f293d;">
+<h3 style="color: #fff; margin-top: 0;">Up to 30%<br>Accessories Markdown Madness</h3>
+<a href="shop.html" style="display: inline-block; background: #cbef33; color: #000; padding: 8px 20px; font-weight: bold; text-decoration: none; border-radius: 4px; margin-top: 15px;">Shop Now</a>
+</div>
+</div>
+<!-- Newsletter Section (Working Subscribe Form) -->
+<div style="text-align: center; margin-top: 60px;">
+<h2 style="font-family: serif; color: #fff; font-size: 28px;">GET EXCLUSIVE OFFERS & UPDATES</h2>
+<form id="subscribe-form" onsubmit="handleSubscribe(event)" style="margin-top: 20px; display: flex; justify-content: center; gap: 0px; max-width: 500px; margin-left: auto; margin-right: auto;">
+<input type="email" id="subscriber-email" placeholder="Enter your email address..." required style="padding: 12px; width: 70%; border: none; border-radius: 4px 0 0 4px; background: #1f293d; color: #fff; outline: none;">
+<button type="submit" style="padding: 12px 25px; background-color: #cbef33; border: none; font-weight: bold; border-radius: 0 4px 4px 0; cursor: pointer;">Subscribe</button>
+</form>
+<p id="subscribe-msg" style="margin-top: 15px; font-size: 14px; color: #cbef33; display: none;"></p>
+</div>
+</section>
+<!-- 6. Features Banner -->
+ <section style="background-color: #cbef33; color: #000; padding: 40px 5%;">
+<h2 style="text-align: center; font-family: serif; font-size: 32px; margin-bottom: 35px;">WE'RE HERE FOR YOU</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;">   
+<div style="display: flex; flex-direction: column; align-items: center;">
+<div style="width: 60px; height: 60px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<rect x="1" y="3" width="15" height="13"></rect>
+<polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+<circle cx="5.5" cy="18.5" r="2.5"></circle>
+<circle cx="18.5" cy="18.5" r="2.5"></circle>
+</svg>
+</div>
+<h4 style="margin: 5px 0; font-size: 18px;">Ship to Home</h4>
+<p style="font-size: 13px; margin: 0; color: #222;">Order online and have products shipped to you.</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center;">
+<div style="width: 60px; height: 60px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+<line x1="12" y1="22.08" x2="12" y2="12"></line>
+</svg>
+</div>
+<h4 style="margin: 5px 0; font-size: 18px;">Free In-Store Pickup</h4>
+<p style="font-size: 13px; margin: 0; color: #222;">Order online and pick up in store.</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center;">
+<div style="width: 60px; height: 60px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+<line x1="1" y1="10" x2="23" y2="10"></line>
+</svg>
+</div>
+<h4 style="margin: 5px 0; font-size: 18px;">Credit Offered</h4>
+<p style="font-size: 13px; margin: 0; color: #222;">Turn big purchases into small payments.</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center;">
+<div style="width: 60px; height: 60px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+<path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0-2-2H3z"></path>
+</svg>
+</div>
+<h4 style="margin: 5px 0; font-size: 18px;">Customer Support</h4>
+<p style="font-size: 13px; margin: 0; color: #222;">We're here to help you find what you need.</p>
+</div>
+</div>
+</section>
+<!-- 7. Footer Section -->
+<footer style="background-color: #050811; color: #aaa; padding: 60px 5% 20px 5%;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px;">
+<div>
+<img src="http://echopride.store/wp-content/uploads/2025/10/BLogowithicon.webp" alt="EchoPride" style="width: 140px; margin-bottom: 15px;">
+<p style="font-size: 13px; line-height: 1.6; margin-bottom: 20px;">Join the ECHOPRIDE Movement. This isn't just gear. This is your story in motion.</p>
+<div style="display: flex; gap: 10px;">
+<a href="#" style="width: 35px; height: 35px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+</a>
+<a href="#" style="width: 35px; height: 35px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none;">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+</a>
+<a href="#" style="width: 35px; height: 35px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+</a>
+<a href="#" style="width: 35px; height: 35px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.065-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+</a>
+</div>
+</div>
+<div>
+<h4 style="color: #fff; margin-bottom: 15px;">Useful Links</h4>
+<ul style="list-style: none; padding: 0; font-size: 14px; line-height: 2;">
+<li><a href="shop.html" style="color: #aaa; text-decoration: none;">Shop</a></li>
+<li><a href="https://echopride.store/contact-us/" style="color: #aaa; text-decoration: none;">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h4 style="color: #fff; margin-bottom: 15px;">Top Categories</h4>
+<ul style="list-style: none; padding: 0; font-size: 14px; line-height: 2;">
+<li><a href="https://echopride.store/product-category/football-uniform/" style="color: #aaa; text-decoration: none;">Football</a></li>
+<li><a href="https://echopride.store/product-category/basketball-uniform/" style="color: #aaa; text-decoration: none;">Basketball</a></li>
+<li><a href="https://echopride.store/product-category/rugby-uniform/" style="color: #aaa; text-decoration: none;">Rugby</a></li>
+<li><a href="https://echopride.store/product-category/soccer-uniform/" style="color: #aaa; text-decoration: none;">Soccer</a></li>
+</ul>
+</div>
+</div> 
+<div style="border-top: 1px solid #1f293d; padding-top: 20px; text-align: center; font-size: 12px;">
+© 2025 EchoPride All rights reserved. Designed by Techmire Solutions
+</div>
+</footer>
+</main>
+<!-- JavaScript for Dynamic Content, Search, Cart, Banner Slider, and Subscription -->
+<script>
+const productsData = {
+football: [
+{ id: 1, price: 4500, img: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=300', title: "Football Coach's Lightweight Windbreaker Jacket", category: "Football Uniform" },
+{ id: 2, price: 5000, img: 'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=300', title: "Football Coach's Hoodie - Performance and Style", category: "Football Uniform" },
+{ id: 3, price: 4800, img: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=300', title: "Moisture-Wicking Football Coach's Hoodie", category: "Football Uniform" },
+{ id: 4, price: 6000, img: 'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=300', title: "Premium Football Coaching Jacket", category: "Football Uniform" }
+],
+basketball: [
+{ id: 5, price: 3500, img: 'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=300', title: "Pro Basketball Player Jersey", category: "Basketball Uniform" },
+{ id: 6, price: 2500, img: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=300', title: "Basketball Performance Shorts", category: "Basketball Uniform" },
+{ id: 7, price: 4500, img: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=300', title: "Basketball Warm-Up Hoodie", category: "Basketball Uniform" },
+{ id: 8, price: 7500, img: 'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=300', title: "High-Top Basketball Shoes", category: "Basketball Uniform" }
+],
+soccer: [
+{ id: 9, price: 4000, img: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=300', title: "Official Soccer Match Jersey", category: "Soccer Uniform" },
+{ id: 10, price: 3200, img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300', title: "Pro Soccer Training Pants", category: "Soccer Uniform" },
+{ id: 11, price: 2000, img: 'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=300', title: "Soccer Shin Guards & Socks Kit", category: "Soccer Uniform" },
+{ id: 12, price: 6500, img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=300', title: "Soccer Lightweight Cleats", category: "Soccer Uniform" }
+],
+rugby: [
+{ id: 13, price: 5500, img: 'https://images.unsplash.com/photo-1589487391730-58f20eb2c308?q=80&w=300', title: "Rugby Heavy-Duty Match Shirt", category: "Rugby Uniform" },
+{ id: 14, price: 3000, img: 'https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=300', title: "Rugby Tough Shorts", category: "Rugby Uniform" },
+{ id: 15, price: 3500, img: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=300', title: "Rugby Headgear Guard", category: "Rugby Uniform" },
+{ id: 16, price: 4000, img: 'https://images.unsplash.com/photo-1589487391730-58f20eb2c308?q=80&w=300', title: "Rugby Training Ball & Kit", category: "Rugby Uniform" }
+]
+};
+
+let cart = [];
+
+function addToCart(productId) {
+let allProducts = [];
+Object.keys(productsData).forEach(cat => {
+allProducts = allProducts.concat(productsData[cat]);
+});
+const product = allProducts.find(p => p.id === productId);
+if (product) {
+cart.push(product);
+updateCartUI();
+openCartDrawer();
+}
+}
+
+function showCategory(categoryName, btnElement) {
+document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+if(btnElement) btnElement.classList.add('active');
+
+const grid = document.getElementById('products-grid');
+const items = productsData[categoryName] || [];
+grid.innerHTML = items.map(item => `
+<div style="background: #111827; padding: 15px; border-radius: 8px; border: 1px solid #1f293d; text-align: left; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<img src="${item.img}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 6px; margin-bottom: 12px;">
+<span style="font-size: 11px; color: #a3e635; text-transform: uppercase; font-weight: bold;">${item.category}</span>
+<h4 style="font-size: 14px; color: #fff; margin: 6px 0 10px 0;">${item.title}</h4>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+<span style="font-size: 14px; color: #cbef33; font-weight: bold;">Rs. ${item.price}</span>
+<button onclick="addToCart(${item.id})" style="background: #cbef33; color: #000; padding: 6px 14px; font-size: 12px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer;">Buy Now</button>
+</div>
+</div>
+`).join('');
+}
+
+// Initial load for products grid
+showCategory('football', document.querySelector('.tab-btn'));
+
+// Store Gallery Grid Populate
+const storeGalleryGrid = document.getElementById('store-gallery-grid');
+const storeProducts = [
+{ id: 101, price: 3200, img: 'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400', title: 'Soccer Game Jersey Set', category: 'Soccer Uniform' },
+{ id: 102, price: 2800, img: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400', title: 'Basketball Training Shorts', category: 'Basketball Uniform' },
+{ id: 103, price: 4200, img: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400', title: 'Football Match Pants', category: 'Football Uniform' },
+{ id: 104, price: 3950, img: 'https://images.unsplash.com/photo-1589487391730-58f20eb2c308?q=80&w=400', title: 'Rugby Field Jersey', category: 'Rugby Uniform' }
+];
+
+storeGalleryGrid.innerHTML = storeProducts.map(item => `
+<div style="background: #111827; padding: 15px; border-radius: 8px; border: 1px solid #1f293d; text-align: left; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<img src="${item.img}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 6px; margin-bottom: 12px;">
+<span style="font-size: 11px; color: #a3e635; text-transform: uppercase; font-weight: bold;">${item.category}</span>
+<h4 style="font-size: 14px; color: #fff; margin: 6px 0 10px 0;">${item.title}</h4>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+<span style="font-size: 14px; color: #cbef33; font-weight: bold;">Rs. ${item.price}</span>
+<button onclick="addToCart(${item.id})" style="background: #cbef33; color: #000; padding: 6px 14px; font-size: 12px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer;">Buy Now</button>
+</div>
+</div>
+`).join('');
+
+// Make store products available in global productsData lookup
+storeProducts.forEach(p => {
+    let catKey = p.category.toLowerCase().includes('soccer') ? 'soccer' : 
+                 p.category.toLowerCase().includes('basketball') ? 'basketball' : 
+                 p.category.toLowerCase().includes('football') ? 'football' : 'rugby';
+    if(!productsData[catKey].some(existing => existing.id === p.id)) {
+        productsData[catKey].push(p);
+    }
+});
+
+// Cart Functions
+function openCartDrawer() {
+document.getElementById('cart-drawer').style.display = 'flex';
+}
+function closeCartDrawer() {
+document.getElementById('cart-drawer').style.display = 'none';
+}
+function removeFromCart(index) {
+cart.splice(index, 1);
+updateCartUI();
+}
+function updateCartUI() {
+document.getElementById('cart-count').textContent = cart.length;
+const container = document.getElementById('cart-items-container');
+const totalElement = document.getElementById('cart-total');
+
+if (cart.length === 0) {
+container.innerHTML = '<p style="color: #aaa; text-align: center; font-size: 14px; margin-top: 20px;">Your cart is empty.</p>';
+totalElement.textContent = 'Rs. 0';
+return;
+}
+
+container.innerHTML = cart.map((item, index) => `
+<div style="display: flex; justify-content: space-between; align-items: center; background: #111827; padding: 10px; border-radius: 6px; border: 1px solid #1f293d;">
+<div style="display: flex; gap: 10px; align-items: center;">
+<img src="${item.img}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+<div>
+<h5 style="color: #fff; font-size: 12px; margin-bottom: 2px;">${item.title}</h5>
+<span style="color: #cbef33; font-size: 11px;">Rs. ${item.price}</span>
+</div>
+</div>
+<button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ef4444; font-size: 16px; cursor: pointer;" title="Remove">&times;</button>
+</div>
+`).join('');
+
+let total = cart.reduce((sum, item) => sum + item.price, 0);
+totalElement.textContent = 'Rs. ' + total;
+}
+
+// Search Modal Functions
+function openSearchModal() {
+document.getElementById('search-modal').style.display = 'flex';
+document.getElementById('search-input').focus();
+}
+function closeSearchModal() {
+document.getElementById('search-modal').style.display = 'none';
+}
+function filterSearchProducts() {
+const query = document.getElementById('search-input').value.toLowerCase();
+const resultsContainer = document.getElementById('search-results');
+if (!query.trim()) {
+resultsContainer.innerHTML = '';
+return;
+}
+let allProducts = [];
+Object.keys(productsData).forEach(cat => {
+allProducts = allProducts.concat(productsData[cat]);
+});
+const filtered = allProducts.filter(p => p.title.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+
+if (filtered.length === 0) {
+resultsContainer.innerHTML = '<p style="color: #aaa; font-size: 14px; text-align: center;">Koi product nahi mila.</p>';
+return;
+}
+
+resultsContainer.innerHTML = filtered.map(item => `
+<div onclick="closeSearchModal(); addToCart(${item.id});" style="display: flex; align-items: center; gap: 12px; background: #111827; padding: 10px; border-radius: 6px; cursor: pointer; border: 1px solid #1f293d;">
+<img src="${item.img}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+<div>
+<h4 style="color: #fff; font-size: 13px; margin-bottom: 3px;">${item.title}</h4>
+<span style="color: #cbef33; font-size: 12px; font-weight: bold;">Rs. ${item.price}</span>
+</div>
+</div>
+`).join('');
+}
+
+// Newsletter Subscription Handler
+function handleSubscribe(e) {
+e.preventDefault();
+const email = document.getElementById('subscriber-email').value;
+const msg = document.getElementById('subscribe-msg');
+msg.textContent = "Shukriya! Aapka email " + email + " successfully subscribe ho gaya hai.";
+msg.style.display = 'block';
+document.getElementById('subscribe-form').reset();
+}
+</script>
+</body>
+</html>

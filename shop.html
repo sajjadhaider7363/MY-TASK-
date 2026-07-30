@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop Sports Uniforms - EchoPride</title>
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#050811;color:#fff}
+header{background:#050811;border-bottom:1px solid #1f293d;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase}
+.page-title{background:linear-gradient(90deg,#0a0f1d,#111827);padding:40px 5%;text-align:center;border-bottom:1px solid #1f293d}
+.page-title h1{font-family:serif;font-size:38px;color:#fff;margin-bottom:10px}
+.page-title p{color:#9ca3af;font-size:15px}
+.filter-bar{display:flex;justify-content:center;gap:12px;padding:25px 5%;flex-wrap:wrap;background:#0a0f1d;border-bottom:1px solid #1f293d}
+.filter-btn{background:#080d19;color:#fff;border:1px dashed #4b5563;padding:10px 20px;font-weight:700;font-size:13px;border-radius:6px;cursor:pointer;transition:.3s}
+.filter-btn.active{background:#d4f828;color:#000;border-color:#d4f828}
+.products-section{padding:40px 5%}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:25px;max-width:1400px;margin:0 auto}
+.product-card{background:#111827;padding:15px;border-radius:10px;border:1px solid #1f293d;display:flex;flex-direction:column;justify-content:space-between;transition:.2s}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,.4)}
+.product-card img{width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:12px}
+.product-category{font-size:11px;color:#a3e635;text-transform:uppercase;font-weight:700;letter-spacing:.5px}
+.product-title{font-size:15px;color:#fff;margin:8px 0 12px;line-height:1.4;min-height:42px}
+.product-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;border-top:1px solid #1f293d;padding-top:12px}
+.product-price{font-size:16px;color:#cbef33;font-weight:700}
+.buy-btn{background:#cbef33;color:#000;padding:8px 18px;font-size:13px;font-weight:700;border:0;border-radius:4px;cursor:pointer;transition:.2s}
+.buy-btn:hover{background:#b8d92a}
+footer{background:#050811;color:#aaa;padding:40px 5% 20px;text-align:center;border-top:1px solid #1f293d}
+footer p{font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<div class="nav-logo"><a href="index.html"><img src="http://echopride.store/wp-content/uploads/2025/10/BLogowithicon.webp" alt="Logo" style="height:40px;opacity:.6;filter:brightness(.8)"></a></div>
+<nav class="nav-links">
+<a href="index.html">HOME</a>
+<a href="shop.html" style="color:#cbef33">SHOP</a>
+<a href="about-us.html">ABOUT US</a>
+<a href="https://echopride.store/contact-us/">CONTACT US</a>
+</nav>
+</header>
+
+<div class="page-title">
+<h1>🏆 SPORTS UNIFORMS & CLOTHING</h1>
+<p>Premium quality sports uniforms, jerseys, shoes, and accessories for every athlete</p>
+</div>
+
+<div class="filter-bar">
+<button class="filter-btn active" onclick="filterProducts('all',this)">🔥 All</button>
+<button class="filter-btn" onclick="filterProducts('football',this)">🏈 Football</button>
+<button class="filter-btn" onclick="filterProducts('basketball',this)">🏀 Basketball</button>
+<button class="filter-btn" onclick="filterProducts('soccer',this)">⚽ Soccer</button>
+<button class="filter-btn" onclick="filterProducts('rugby',this)">🏉 Rugby</button>
+<button class="filter-btn" onclick="filterProducts('baseball',this)">⚾ Baseball</button>
+<button class="filter-btn" onclick="filterProducts('shoes',this)">👟 Shoes</button>
+<button class="filter-btn" onclick="filterProducts('accessories',this)">🧢 Accessories</button>
+</div>
+
+<section class="products-section">
+<div class="products-grid" id="shop-products-grid"></div>
+</section>
+
+<footer><p>© 2025 EchoPride. All rights reserved.</p></footer>
+
+<script>
+const llProducts = [
+  {id:1,price:4500,img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400',title:'Pro Football Match Jersey',catKey:'football'},
+  {id:2,price:5000,img:'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=400',title:'Football Coach Hoodie',catKey:'football'},
+  {id:3,price:3200,img:'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400',title:'Football Training Pants',catKey:'football'},
+  {id:4,price:6000,img:'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400',title:'Football Coaching Jacket',catKey:'football'},
+  {id:5,price:2800,img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400',title:'Football Practice Tee',catKey:'football'},
+  {id:6,price:5500,img:'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=400',title:'Football Game Day Hoodie',catKey:'football'},
+  {id:7,price:3800,img:'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400',title:'Football Compression Top',catKey:'football'},
+  {id:8,price:2200,img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400',title:'Football Socks 3 Pack',catKey:'football'},
+  {id:9,price:3500,img:'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400',title:'Pro Basketball Jersey',catKey:'basketball'},
+  {id:10,price:2500,img:'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400',title:'Basketball Shorts',catKey:'basketball'},
+  {id:11,price:4500,img:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=400',title:'Basketball Hoodie',catKey:'basketball'},
+  {id:12,price:7500,img:'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=400',title:'Basketball Shoes',catKey:'basketball'},
+  {id:13,price:1800,img:'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400',title:'Basketball Headband Set',catKey:'basketball'},
+  {id:14,price:4200,img:'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400',title:'NBA Style Jersey',catKey:'basketball'},
+  {id:15,price:3000,img:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=400',title:'Shooting Sleeve',catKey:'basketball'},
+  {id:16,price:1500,img:'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400',title:'Basketball Wristband',catKey:'basketball'},
+  {id:17,price:4000,img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400',title:'Soccer Match Jersey',catKey:'soccer'},
+  {id:18,price:3200,img:'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=400',title:'Soccer Training Pants',catKey:'soccer'},
+  {id:19,price:2000,img:'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=400',title:'Shin Guards & Socks',catKey:'soccer'},
+  {id:20,price:6500,img:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=400',title:'Soccer Cleats',catKey:'soccer'},
+  {id:21,price:2500,img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400',title:'Soccer Practice Jersey',catKey:'soccer'},
+  {id:22,price:1500,img:'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=400',title:'Soccer Shorts',catKey:'soccer'},
+  {id:23,price:5000,img:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=400',title:'Goalkeeper Gloves',catKey:'soccer'},
+  {id:24,price:3500,img:'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=400',title:'Soccer Track Jacket',catKey:'soccer'},
+  {id:25,price:5500,img:'https://images.unsplash.com/photo-1589487391730-58f20eb2c308?q=80&w=400',title:'Rugby Match Shirt',catKey:'rugby'},
+  {id:26,price:3000,img:'https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=400',title:'Rugby Shorts',catKey:'rugby'},
+  {id:27,price:3500,img:'https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=400',title:'Rugby Headgear',catKey:'rugby'},
+  {id:28,price:4000,img:'https://images.unsplash.com/photo-1589487391730-58f20eb2c308?q=80&w=400',title:'Rugby Training Kit',catKey:'rugby'},
+  {id:29,price:2500,img:'https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=400',title:'Rugby Socks',catKey:'rugby'},
+  {id:30,price:6000,img:'https://images.unsplash.com/photo-1589487391730-58f20eb2c308?q=80&w=400',title:'Rugby Rain Jacket',catKey:'rugby'},
+  {id:31,price:1800,img:'https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=400',title:'Rugby Mouthguard',catKey:'rugby'},
+  {id:32,price:3800,img:'https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=400',title:'Baseball Jersey',catKey:'baseball'},
+  {id:33,price:2200,img:'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400',title:'Baseball Cap',catKey:'baseball'},
+  {id:34,price:4800,img:'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400',title:'Baseball Pants',catKey:'baseball'},
+  {id:35,price:1500,img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400',title:'Baseball Belt',catKey:'baseball'},
+  {id:36,price:5500,img:'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=400',title:'Baseball Cleats',catKey:'baseball'},
+  {id:37,price:3000,img:'https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=400',title:'Batting Gloves',catKey:'baseball'},
+  {id:38,price:2500,img:'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400',title:'Baseball Practice Tee',catKey:'baseball'},
+  {id:39,price:7500,img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400',title:'Football Cleats Pro',catKey:'shoes'},
+  {id:40,price:8500,img:'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=400',title:'Basketball High-Tops',catKey:'shoes'},
+  {id:41,price:6000,img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400',title:'Soccer Cleats',catKey:'shoes'},
+  {id:42,price:5000,img:'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=400',title:'Running Shoes Elite',catKey:'shoes'},
+  {id:43,price:4000,img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400',title:'Training Cross-Trainers',catKey:'shoes'},
+  {id:44,price:9500,img:'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=400',title:'Premium Sneakers',catKey:'shoes'},
+  {id:45,price:1200,img:'https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=400',title:'Sports Water Bottle',catKey:'accessories'},
+  {id:46,price:800,img:'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400',title:'Wristbands 2 Pack',catKey:'accessories'},
+  {id:47,price:2500,img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400',title:'Sports Backpack',catKey:'accessories'},
+  {id:48,price:600,img:'https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=400',title:'Ankle Socks 6 Pack',catKey:'accessories'},
+  {id:49,price:3500,img:'https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=400',title:'Duffel Bag Sports',catKey:'accessories'},
+  {id:50,price:1500,img:'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400',title:'Sports Towel Set',catKey:'accessories'}
+];
+
+function renderProducts(products) {
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPMaQGtKWxLkLy5uJNTEeFI-pCnu6ySyLhjao6GAVHcw&s',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcVY8WfkHE7IBOlCchs7b6T_Afjp61O2fTl6wqG06l0A&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmks20HdaBAuv9E1TeUBa8IImps1e-ESXyq7OKbHcGfg&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6qkEaUqf4ECSyLGQrrn8xbpwdm0LkZ1kKeRh3saYZQg&s'
+
+  baseball: [
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvL-JTp8rAw0EfD_3Vj3PqDy6T_lNzwB09nunCdZ3bjg&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgDFxG6vWiX9Obrb2GfwHEiew9iWiJbSNrV0J34-e72Q&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvURk1rWUKszjDq0u1RN3acRF1YugYhhE33UNau9Qktg&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoS5XTYSxKfuEdyYQM2m0d2laN5d6ZIeStXaGpeqfN9w&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBKunXIR1RAx_noOa-0F40_ZnoQ1ONI4AjDhassLhemA&s=10'
+  ],
+  shoes [
+    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcpuiFtlfXPTZI1ZZBcFUtAxV_BOwgjEKWdeF7KgklbQ&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd1JlRGHVCUO_d3xHn15FIcihqLicjuqVkPRH67m6Ixw&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR37yNQOXBz_2-G1Ue5L--B7vQGCZbhcSmJaYLsFP0VAw&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvAv0nk-Ph6vpAHv5IFqJfzXe9W9aol9HlvHE8YUZJ3Q&s=10'
+  ],
+  accessories [
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU5aPRr4hN5SBCTF-o5OwXVsLKu00F8LhBTo4oWyOm9g&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT6N-cIIwew-_2aZnMpeibwHU30EtHM_aBPTWa1g3XHQ&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUQZa6xvKrQV6Nd9oA8ZE8wB5aoGA2YXUuc1iPs0-Aew&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgKduHsQyXP0KSRcG8o54R5dzr5P8qSn9WBxmgMgXycg&s=10',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwsn4pspXSJlTm3VgKc6JRqvMw0Px5_ssmhsMevqv1Tg&s'
+  ]
+};
+
+const COLORS = ['Red','Blue','Black','White','Green'];
+const SIZES = ['S','M','L','XL','XXL'];
+
+const TITLES = {
+  football:['Pro Football Jersey','Football Hoodie','Training Pants','Game Jacket','Practice T-Shirt'],
+  basketball:['Pro Basketball Jersey','Shorts Pro','Warm-Up Hoodie','High-Top Shoes','Headband Set'],
+  soccer:['Official Soccer Jersey','Training Pants','Shin Guards Kit','Lightweight Cleats','Practice Jersey'],
+  rugby:['Match Shirt Heavy','Tough Shorts','Headgear Guard','Training Ball Kit','Socks Long'],
+  baseball:['Game Jersey','Cap Pro','Pants Kneepad','Belt','Cleats Metal'],
+  shoes:['Football Cleats Pro','Basketball High-Tops','Soccer Cleats FG','Running Shoes Elite','Cross-Trainers'],
+  accessories:['Water Bottle','Wristbands 2 Pack','Backpack','Ankle Socks 6 Pack','Duffel Bag']
+};
+
+const CATEGORIES = ['football','basketball','soccer','rugby','baseball','shoes','accessories'];
+const CATNAMES = {football:'Football',basketball:'Basketball',soccer:'Soccer',rugby:'Rugby',baseball:'Baseball',shoes:'Shoes',accessories:'Accessories'};
+const PRICES = {football:{min:600,max:9500},basketball:{min:500,max:8500},soccer:{min:500,max:9000},rugby:{min:600,max:8500},baseball:{min:400,max:8000},shoes:{min:1500,max:12000},accessories:{min:200,max:5000}};
+
+let allProducts = [];
+let pid = 1;
+
+CATEGORIES.forEach(cat => {
+  const titles = TITLES[cat];
+  const imgArr = SPECIFIC_IMAGES[cat];
+  const pr = PRICES[cat];
+  const cn = CATNAMES[cat];
+  
+  titles.forEach((t,i) => {
+    const c = COLORS[i % COLORS.length];
+    const s = SIZES[i % SIZES.length];
+    const p = Math.round((pr.min + Math.random()*(pr.max-pr.min))/50)*50;
+    allProducts.push({
+      id: pid++,
+      title: t + ' - ' + c + '/' + s,
+      price: p,
+      img: imgArr[i],
+      category: cn,
+      catKey: cat
+    });
+  });
+});
+
+let cart = JSON.parse(localStorage.getItem('shopCart1000')) || [];
+
+function renderProducts(products) {
+  const grid = document.getElementById('shop-products-grid');
+  if(!products.length) {
+    grid.innerHTML = '<div class="no-products">😕 No products found.</div>';
+    return;
+  }
+  grid.innerHTML = products.map(p => `
+    <div class="product-card">
+      <div>
+        <img src="${p.img}" alt="${p.title}" loading="lazy">
+        <span class="product-category">${p.category}</span>
+        <h4 class="product-title">${p.title}</h4>
+      </div>
+      <div>
+        <div class="product-footer">
+          <span class="product-price">Rs. ${p.price.toLocaleString()}</span>
+          <button class="buy-btn" onclick="addToCart(${p.id})">🛒 Add</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(catKey, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  if(catKey === 'all') renderProducts(allProducts);
+  else renderProducts(allProducts.filter(p => p.catKey === catKey));
+}
+
+function addToCart(id) {
+  const p = allProducts.find(x => x.id === id);
+  if(p) { cart.push(p); localStorage.setItem('shopCart1000',JSON.stringify(cart)); updateCartUI(); openCartDrawer(); }
+}
+
+function removeFromCart(i) { cart.splice(i,1); localStorage.setItem('shopCart1000',JSON.stringify(cart)); updateCartUI(); }
+
+function updateCartUI() {
+  document.getElementById('cart-count').textContent = cart.length;
+  const c = document.getElementById('cart-items-container');
+  const t = document.getElementById('cart-total');
+  if(!cart.length) {
+    c.innerHTML = '<p style="color:#9ca3af;text-align:center;margin-top:40px">🛒 Cart is empty.</p>';
+    t.textContent = 'Rs. 0';
+    return;
+  }
+  let total = 0;
+  c.innerHTML = cart.map((it,i) => {
+    total += it.price;
+    return '<div style="background:#1f293d;padding:12px;border-radius:8px;display:flex;align-items:center;gap:12px">'+
+      '<img src="'+it.img+'" style="width:55px;height:55px;object-fit:cover;border-radius:6px">'+
+      '<div style="flex-grow:1"><h4 style="font-size:13px;color:#fff;margin-bottom:4px">'+it.title+'</h4>'+
+      '<span style="font-size:13px;color:#cbef33;font-weight:700">Rs. '+it.price.toLocaleString()+'</span></div>'+
+      '<button onclick="removeFromCart('+i+')" style="background:0;border:0;color:#ef4444;font-size:20px;cursor:pointer">&times;</button></div>';
+  }).join('');
+  t.textContent = 'Rs. '+total.toLocaleString();
+}
+
+function openCartDrawer() { document.getElementById('cart-drawer').style.display = 'flex'; }
+function closeCartDrawer() { document.getElementById('cart-drawer').style.display = 'none'; }
+
+document.addEventListener('click', function(e) {
+  const d = document.getElementById('cart-drawer');
+  if(d.style.display === 'flex' && !d.contains(e.target) && !e.target.closest('.nav-actions')) closeCartDrawer();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderProducts(allProducts);
+  updateCartUI();
+});
+</script>
+</body>
+</html>
